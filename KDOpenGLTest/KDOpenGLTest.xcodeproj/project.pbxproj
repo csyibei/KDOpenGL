@@ -13,6 +13,8 @@
 		2B17D466213890280039665E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B17D465213890280039665E /* Assets.xcassets */; };
 		2B17D469213890280039665E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B17D467213890280039665E /* LaunchScreen.storyboard */; };
 		2B17D46C213890280039665E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B17D46B213890280039665E /* main.m */; };
+		2BEA6AB4213C92C5003E8FEE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BEA6AB3213C92C4003E8FEE /* OpenGLES.framework */; };
+		2BEA6AB7213CA481003E8FEE /* KDGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA6AB6213CA481003E8FEE /* KDGLView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,9 @@
 		2B17D468213890280039665E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B17D46A213890280039665E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B17D46B213890280039665E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2BEA6AB3213C92C4003E8FEE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		2BEA6AB5213CA481003E8FEE /* KDGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDGLView.h; sourceTree = "<group>"; };
+		2BEA6AB6213CA481003E8FEE /* KDGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDGLView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BEA6AB4213C92C5003E8FEE /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +50,7 @@
 			children = (
 				2B17D45B213890250039665E /* KDOpenGLTest */,
 				2B17D45A213890250039665E /* Products */,
+				2BEA6AB2213C92C4003E8FEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +69,8 @@
 				2B17D45D213890250039665E /* AppDelegate.m */,
 				2B17D45F213890250039665E /* ViewController.h */,
 				2B17D460213890250039665E /* ViewController.m */,
+				2BEA6AB5213CA481003E8FEE /* KDGLView.h */,
+				2BEA6AB6213CA481003E8FEE /* KDGLView.m */,
 				2B17D462213890250039665E /* Main.storyboard */,
 				2B17D465213890280039665E /* Assets.xcassets */,
 				2B17D467213890280039665E /* LaunchScreen.storyboard */,
@@ -69,6 +78,14 @@
 				2B17D46B213890280039665E /* main.m */,
 			);
 			path = KDOpenGLTest;
+			sourceTree = "<group>";
+		};
+		2BEA6AB2213C92C4003E8FEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2BEA6AB3213C92C4003E8FEE /* OpenGLES.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +160,7 @@
 			files = (
 				2B17D461213890250039665E /* ViewController.m in Sources */,
 				2B17D46C213890280039665E /* main.m in Sources */,
+				2BEA6AB7213CA481003E8FEE /* KDGLView.m in Sources */,
 				2B17D45E213890250039665E /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
