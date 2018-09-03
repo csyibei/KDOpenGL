@@ -27,7 +27,7 @@ NSString *const fragmentShaderString = SHADER_STRING
 (
  void main()
  {
-     gl_FragColor = vec4(1.0, 0.5, 0.2, 1.0);
+     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
  }
 );
 
@@ -42,6 +42,8 @@ NSString *const fragmentShaderString = SHADER_STRING
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        //context init
         self.contentScaleFactor = [[UIScreen mainScreen] scale];
         CAEAGLLayer *glLayer = (CAEAGLLayer *)self.layer;
         glLayer.opaque = YES;
@@ -88,7 +90,7 @@ NSString *const fragmentShaderString = SHADER_STRING
             NSLog(@"%s",fragmentInfoLog);
         }
         
-        //program init
+        //program init and link
         unsigned int shaderProgram;
         shaderProgram = glCreateProgram();
         
@@ -104,37 +106,101 @@ NSString *const fragmentShaderString = SHADER_STRING
             NSLog(@"%s",linkInfoLog);
         }
         
-        
-        glViewport(0, 0, 100, 100);
-        glClearColor(1.0, 0.5, 0.2, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(shaderProgram);
         glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
+//        glGetAttribLocation(shaderProgram, "aPos");
         
         
+        //frameBuffer and renderBuffer
+        GLuint frameBuffer;
+        glGenFramebuffers(1, &frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+        
+        GLuint renderBuffer;
+        glGenRenderbuffers(1, &renderBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
+        [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:glLayer];
+        
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer);
+        
+        GLint _backingWidth;
+        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &_backingWidth);
+        GLint _backingHeight;
+        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &_backingHeight);
+        
+        //Viewport
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glViewport(0, 0, _backingWidth, _backingHeight);
+        
+        //framebuffer  renderbuffer viewport一定需要在传vbo前创建
+        
+        //将数据传到shader
         GLfloat vertexArr[] = {
             -0.5f, -0.5f, 0.0f,
             0.5f, -0.5f, 0.0f,
             0.0f,  0.5f, 0.0f
         };
         
-        unsigned int VBO;
+        //使用VBO VAO
+        GLuint VAO;
+        glGenVertexArrays(1, &VAO);
+        glBindVertexArray(VAO);
+        
+        GLuint VBO;
         glGenBuffers(1, &VBO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertexArr), vertexArr, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
         glEnableVertexAttribArray(0);
-        
-        unsigned int VAO;
-        glGenVertexArrays(1, &VAO);
-        
-        glBindVertexArray(VAO);
+
+
         glDrawArrays(GL_TRIANGLES, 0, 3);
         
+        //使用VBO IBO
+//        const GLfloat vertices[] = {
+//            0.5f, 0.5f, 0.0f,   // 右上角
+//            0.5f, -0.5f, 0.0f,  // 右下角
+//            -0.5f, -0.5f, 0.0f, // 左下角
+//            -0.5f, 0.5f, 0.0f   // 左上角
+//        };
+//
+//        const GLubyte indices[] = {
+//            0,1,3,   // 绘制第一个三角形
+//            1,2,3    // 绘制第二个三角形
+//        };
+//
+//        // 创建一个渲染缓冲区对象
+//        GLuint vertexBuffer;
+//
+//        // 使用glGenBuffers()生成新缓存对象并指定缓存对象标识符ID
+//        glGenBuffers(1, &vertexBuffer);
+//
+//        // 绑定vertexBuffer到GL_ARRAY_BUFFER目标
+//        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+//
+//        // 为VBO申请空间，初始化并传递数据
+//        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//        GLuint indexBuffer;
+//        glGenBuffers(1, &indexBuffer);
+//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+//        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+//        // 使用VBO时，最后一个参数0为要获取参数在GL_ARRAY_BUFFER中的偏移量
+//        // 使用glVertexAttribPointer函数告诉OpenGL该如何解析顶点数据
+//        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+//        glEnableVertexAttribArray(0);
+//        //    glDrawArrays(GL_TRIANGLES, 0, 4);
+//        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
         
+
+        [context presentRenderbuffer:GL_RENDERBUFFER];
     }
     return self;
 }
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
