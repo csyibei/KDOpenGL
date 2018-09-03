@@ -14,9 +14,14 @@
 #define STRINGIZE2(x) STRINGIZE(x)
 #define SHADER_STRING(text) @ STRINGIZE2(text)
 
+
 NSString *const vertexShaderString = SHADER_STRING
 (
- attribute vec3 aPos;
+
+// attribute vec3 aPos1;
+ 
+// attribute vec3 aPos;
+ layout (location = 0) in vec3 aPos
  void main()
  {
      gl_Position = vec4(aPos.x,aPos.y,aPos.z,1.0);
@@ -157,6 +162,7 @@ NSString *const fragmentShaderString = SHADER_STRING
 
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindVertexArray(0);
         
         //使用VBO IBO
 //        const GLfloat vertices[] = {

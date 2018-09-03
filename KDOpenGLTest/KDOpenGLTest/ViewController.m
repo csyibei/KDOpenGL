@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "KDGLView.h"
+#import "KDNewGLView.h"
 
 
 @interface ViewController ()
@@ -39,7 +40,7 @@
 //    });
     
     
-    KDGLView *glv = [[KDGLView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    KDNewGLView *glv = [[KDNewGLView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     [self.view addSubview:glv];
     
 //    [context presentRenderbuffer:0];
