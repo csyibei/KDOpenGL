@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self kd_contextSet];
-        [self kd_linkProgram];
+        GLuint program = [self kd_linkProgram];
         [self kd_createFrameAndRenderBuffer];
         [self kd_createViewPort];
         
@@ -46,14 +46,30 @@
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
         // 颜色属性
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-        glEnableVertexAttribArray(1);
+//        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+//        glEnableVertexAttribArray(1);
         
         
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
-        
         [_context presentRenderbuffer:GL_RENDERBUFFER];
+        
+        __block float i = 0.1;
+        [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+//            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+//            glClear(GL_COLOR_BUFFER_BIT);
+            i += 0.1;
+            glUseProgram(program);
+            int colorLocation = glGetUniformLocation(program, "changeColor");
+            glUniform4f(colorLocation, i, i, i, 1.0);
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+            glBindVertexArray(0);
+            [_context presentRenderbuffer:GL_RENDERBUFFER];
+        }];
+        
+        
+       
     }
     return self;
 }
@@ -106,7 +122,7 @@
     return shader;
 }
 
-- (void)kd_linkProgram
+- (GLuint)kd_linkProgram
 {
     GLuint vertexShader = [self kd_loadShader:@"KDVertex" withType:GL_VERTEX_SHADER];
     GLuint fragmentShader = [self kd_loadShader:@"KDFragment" withType:GL_FRAGMENT_SHADER];
@@ -127,6 +143,8 @@
     glUseProgram(programHandle);
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+    
+    return programHandle;
 }
 
 - (void)kd_createFrameAndRenderBuffer
