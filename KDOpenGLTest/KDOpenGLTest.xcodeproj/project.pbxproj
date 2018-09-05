@@ -18,6 +18,9 @@
 		2BEA6AB9213DBCFB003E8FEE /* KDVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2BEA6AB8213DBCFB003E8FEE /* KDVertex.glsl */; };
 		2BEA6ABC213DCA41003E8FEE /* KDNewGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA6ABB213DCA41003E8FEE /* KDNewGLView.m */; };
 		2BEA6ABE213DCA57003E8FEE /* KDFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2BEA6ABD213DCA57003E8FEE /* KDFragment.glsl */; };
+		2BEA6AC1213F1018003E8FEE /* KDTextureGlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA6AC0213F1018003E8FEE /* KDTextureGlView.m */; };
+		2BEA6AC3213F31E6003E8FEE /* KDTextureVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2BEA6AC2213F31E6003E8FEE /* KDTextureVertex.glsl */; };
+		2BEA6AC5213F31FC003E8FEE /* KDTextureFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2BEA6AC4213F31FC003E8FEE /* KDTextureFragment.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,10 @@
 		2BEA6ABA213DCA41003E8FEE /* KDNewGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDNewGLView.h; sourceTree = "<group>"; };
 		2BEA6ABB213DCA41003E8FEE /* KDNewGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDNewGLView.m; sourceTree = "<group>"; };
 		2BEA6ABD213DCA57003E8FEE /* KDFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = KDFragment.glsl; sourceTree = "<group>"; };
+		2BEA6ABF213F1018003E8FEE /* KDTextureGlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDTextureGlView.h; sourceTree = "<group>"; };
+		2BEA6AC0213F1018003E8FEE /* KDTextureGlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDTextureGlView.m; sourceTree = "<group>"; };
+		2BEA6AC2213F31E6003E8FEE /* KDTextureVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = KDTextureVertex.glsl; sourceTree = "<group>"; };
+		2BEA6AC4213F31FC003E8FEE /* KDTextureFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = KDTextureFragment.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +87,12 @@
 				2BEA6AB6213CA481003E8FEE /* KDGLView.m */,
 				2BEA6ABA213DCA41003E8FEE /* KDNewGLView.h */,
 				2BEA6ABB213DCA41003E8FEE /* KDNewGLView.m */,
+				2BEA6ABF213F1018003E8FEE /* KDTextureGlView.h */,
+				2BEA6AC0213F1018003E8FEE /* KDTextureGlView.m */,
 				2BEA6AB8213DBCFB003E8FEE /* KDVertex.glsl */,
 				2BEA6ABD213DCA57003E8FEE /* KDFragment.glsl */,
+				2BEA6AC2213F31E6003E8FEE /* KDTextureVertex.glsl */,
+				2BEA6AC4213F31FC003E8FEE /* KDTextureFragment.glsl */,
 				2B17D462213890250039665E /* Main.storyboard */,
 				2B17D465213890280039665E /* Assets.xcassets */,
 				2B17D467213890280039665E /* LaunchScreen.storyboard */,
@@ -160,6 +171,8 @@
 				2B17D466213890280039665E /* Assets.xcassets in Resources */,
 				2BEA6AB9213DBCFB003E8FEE /* KDVertex.glsl in Resources */,
 				2BEA6ABE213DCA57003E8FEE /* KDFragment.glsl in Resources */,
+				2BEA6AC5213F31FC003E8FEE /* KDTextureFragment.glsl in Resources */,
+				2BEA6AC3213F31E6003E8FEE /* KDTextureVertex.glsl in Resources */,
 				2B17D464213890250039665E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BEA6AC1213F1018003E8FEE /* KDTextureGlView.m in Sources */,
 				2BEA6ABC213DCA41003E8FEE /* KDNewGLView.m in Sources */,
 				2B17D461213890250039665E /* ViewController.m in Sources */,
 				2B17D46C213890280039665E /* main.m in Sources */,
