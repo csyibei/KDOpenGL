@@ -105,40 +105,20 @@
 //    NSData *data = UIImagePNGRepresentation(image);
 //    char *imageData = (char *)[data bytes];
     
-    CGImageRef spriteImage = [UIImage imageNamed:@"KDPicture1"].CGImage;
-    if (!spriteImage) {
+    CGImageRef alpacaImage = [UIImage imageNamed:@"KDPicture1"].CGImage;
+    if (!alpacaImage) {
         NSLog(@"Failed to load image");
     }
     
-    // 2 读取图片的大小
-    size_t width = CGImageGetWidth(spriteImage);
-    size_t height = CGImageGetHeight(spriteImage);
+    size_t width = CGImageGetWidth(alpacaImage);
+    size_t height = CGImageGetHeight(alpacaImage);
+    GLubyte * alpacaData = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte)); //rgba共4个byte
+    CGContextRef alpacaContext = CGBitmapContextCreate(alpacaData, width, height, 8, width*4,
+                                                       CGImageGetColorSpace(alpacaImage), kCGImageAlphaPremultipliedLast);
+    CGContextDrawImage(alpacaContext, CGRectMake(0, 0, width, height), alpacaImage);
+    CGContextRelease(alpacaContext);
     
-    GLubyte * spriteData = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte)); //rgba共4个byte
-    
-    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4,
-                                                       CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
-    
-    // 3在CGContextRef上绘图
-    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
-    
-    CGContextRelease(spriteContext);
-    
-//    GLuint texture;
-//    glGenTextures(1, &(texture));
-//    glBindTexture(GL_TEXTURE_2D, texture);
-//
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-//
-//    float fw = width, fh = height;
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fw, fh, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
-//
-//    free(spriteData);
-    
-    
+
     GLuint texture;
     glGenTextures(1, &(texture));
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -149,12 +129,29 @@
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    float fw = width, fh = height;
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fw, fh, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteImage);
+    /*
+    glTexImage2D(GL_TEXTURE_2D,
+                 0,
+                 GL_RGBA,
+                 (float)width,
+                 (float)heigh,
+                 0,
+                 GL_RGBA,
+                 GL_UNSIGNED_BYTE,
+                 alpacaImage);
+     */
     //在这里浪费了很多时间 原因是将spriteData写成了上面的spriteImage
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fw, fh, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    glTexImage2D(GL_TEXTURE_2D,
+                 0,
+                 GL_RGBA,
+                 (float)width,
+                 (float)height,
+                 0,
+                 GL_RGBA,
+                 GL_UNSIGNED_BYTE,
+                 alpacaData);
 //    glGenerateMipmap(GL_TEXTURE_2D);
-    free(spriteData);
+    free(alpacaData);
     
     return texture;
 }
