@@ -27,7 +27,6 @@
         [self kd_createFrameAndRenderBuffer];
         [self kd_createViewPort];
 
-        
 //        float vertexMessageArr[] = {
 //            0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // top right
 //            0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // bottom right
@@ -49,8 +48,6 @@
             -0.5f, 0.5f, 0.0f,0.0f, 1.0f,
             0.5f, -0.5f, 0.0f,1.0f, 0.0f,
         };
-        
-
         
         GLuint VAO;
         glGenVertexArrays(1, &VAO);
@@ -75,18 +72,21 @@
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
         
-        
-        
-        GLuint texture1 =  [self kd_creatTexture];
         glActiveTexture(GL_TEXTURE0);
-//        glActiveTexture(GL_TEXTURE0);
-//        glBindTexture(GL_TEXTURE_2D, texture1);
+        GLuint texture1 =  [self kd_creatTextureWithImageName:@"KDPicture1"];
+        glBindTexture(GL_TEXTURE_2D, texture1);
 //        GLuint texture0Uniform = glGetUniformLocation(program, "texturePic");
 //        glUniform1i(texture0Uniform, 0);
-        glBindTexture(GL_TEXTURE_2D, texture1);
+
+        glActiveTexture(GL_TEXTURE1);
+        GLuint texture2 =  [self kd_creatTextureWithImageName:@"KDPicture2"];
+        glBindTexture(GL_TEXTURE_2D, texture2);
+        GLuint texture1Uniform = glGetUniformLocation(program, "texturePic1");
+        glUniform1i(texture1Uniform,1);
+        
+        //        glBindVertexArray(VAO);
+        //        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-//        glBindVertexArray(VAO);
-//        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
         [_context presentRenderbuffer:GL_RENDERBUFFER];
         
@@ -99,13 +99,13 @@
     return [CAEAGLLayer class];
 }
 
-- (GLuint)kd_creatTexture
+- (GLuint)kd_creatTextureWithImageName:(NSString *)imageName
 {
 //    UIImage *image =  [UIImage imageNamed:@"KDPicture1"];
 //    NSData *data = UIImagePNGRepresentation(image);
 //    char *imageData = (char *)[data bytes];
     
-    CGImageRef alpacaImage = [UIImage imageNamed:@"KDPicture1"].CGImage;
+    CGImageRef alpacaImage = [UIImage imageNamed:imageName].CGImage;
     if (!alpacaImage) {
         NSLog(@"Failed to load image");
     }
@@ -123,9 +123,8 @@
     glGenTextures(1, &(texture));
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);    // set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
