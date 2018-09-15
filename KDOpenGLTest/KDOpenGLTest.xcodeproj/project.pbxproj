@@ -13,6 +13,10 @@
 		2B17D466213890280039665E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B17D465213890280039665E /* Assets.xcassets */; };
 		2B17D469213890280039665E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B17D467213890280039665E /* LaunchScreen.storyboard */; };
 		2B17D46C213890280039665E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B17D46B213890280039665E /* main.m */; };
+		2B787EDC214B6E320016AF33 /* KDAnimationGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B787EDB214B6E320016AF33 /* KDAnimationGLView.m */; };
+		2B787EE0214CC6DA0016AF33 /* KDShaderLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B787EDF214CC6DA0016AF33 /* KDShaderLoad.m */; };
+		2B787EE3214CCBA60016AF33 /* KDProgramLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B787EE2214CCBA60016AF33 /* KDProgramLink.m */; };
+		2B787EE6214CDB220016AF33 /* KDGLContextAndBufferConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B787EE5214CDB220016AF33 /* KDGLContextAndBufferConfig.m */; };
 		2BEA6AB4213C92C5003E8FEE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BEA6AB3213C92C4003E8FEE /* OpenGLES.framework */; };
 		2BEA6AB7213CA481003E8FEE /* KDGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA6AB6213CA481003E8FEE /* KDGLView.m */; };
 		2BEA6AB9213DBCFB003E8FEE /* KDVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2BEA6AB8213DBCFB003E8FEE /* KDVertex.glsl */; };
@@ -34,6 +38,14 @@
 		2B17D468213890280039665E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B17D46A213890280039665E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B17D46B213890280039665E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2B787EDA214B6E320016AF33 /* KDAnimationGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDAnimationGLView.h; sourceTree = "<group>"; };
+		2B787EDB214B6E320016AF33 /* KDAnimationGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDAnimationGLView.m; sourceTree = "<group>"; };
+		2B787EDE214CC6DA0016AF33 /* KDShaderLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDShaderLoad.h; sourceTree = "<group>"; };
+		2B787EDF214CC6DA0016AF33 /* KDShaderLoad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDShaderLoad.m; sourceTree = "<group>"; };
+		2B787EE1214CCBA60016AF33 /* KDProgramLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDProgramLink.h; sourceTree = "<group>"; };
+		2B787EE2214CCBA60016AF33 /* KDProgramLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDProgramLink.m; sourceTree = "<group>"; };
+		2B787EE4214CDB220016AF33 /* KDGLContextAndBufferConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDGLContextAndBufferConfig.h; sourceTree = "<group>"; };
+		2B787EE5214CDB220016AF33 /* KDGLContextAndBufferConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDGLContextAndBufferConfig.m; sourceTree = "<group>"; };
 		2BEA6AB3213C92C4003E8FEE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2BEA6AB5213CA481003E8FEE /* KDGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDGLView.h; sourceTree = "<group>"; };
 		2BEA6AB6213CA481003E8FEE /* KDGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KDGLView.m; sourceTree = "<group>"; };
@@ -79,6 +91,7 @@
 		2B17D45B213890250039665E /* KDOpenGLTest */ = {
 			isa = PBXGroup;
 			children = (
+				2B787EDD214CC5610016AF33 /* KDOpenGLSource */,
 				2B17D45C213890250039665E /* AppDelegate.h */,
 				2B17D45D213890250039665E /* AppDelegate.m */,
 				2B17D45F213890250039665E /* ViewController.h */,
@@ -89,6 +102,8 @@
 				2BEA6ABB213DCA41003E8FEE /* KDNewGLView.m */,
 				2BEA6ABF213F1018003E8FEE /* KDTextureGlView.h */,
 				2BEA6AC0213F1018003E8FEE /* KDTextureGlView.m */,
+				2B787EDA214B6E320016AF33 /* KDAnimationGLView.h */,
+				2B787EDB214B6E320016AF33 /* KDAnimationGLView.m */,
 				2BEA6AB8213DBCFB003E8FEE /* KDVertex.glsl */,
 				2BEA6ABD213DCA57003E8FEE /* KDFragment.glsl */,
 				2BEA6AC2213F31E6003E8FEE /* KDTextureVertex.glsl */,
@@ -100,6 +115,19 @@
 				2B17D46B213890280039665E /* main.m */,
 			);
 			path = KDOpenGLTest;
+			sourceTree = "<group>";
+		};
+		2B787EDD214CC5610016AF33 /* KDOpenGLSource */ = {
+			isa = PBXGroup;
+			children = (
+				2B787EDE214CC6DA0016AF33 /* KDShaderLoad.h */,
+				2B787EDF214CC6DA0016AF33 /* KDShaderLoad.m */,
+				2B787EE1214CCBA60016AF33 /* KDProgramLink.h */,
+				2B787EE2214CCBA60016AF33 /* KDProgramLink.m */,
+				2B787EE4214CDB220016AF33 /* KDGLContextAndBufferConfig.h */,
+				2B787EE5214CDB220016AF33 /* KDGLContextAndBufferConfig.m */,
+			);
+			path = KDOpenGLSource;
 			sourceTree = "<group>";
 		};
 		2BEA6AB2213C92C4003E8FEE /* Frameworks */ = {
@@ -185,11 +213,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BEA6AC1213F1018003E8FEE /* KDTextureGlView.m in Sources */,
+				2B787EE6214CDB220016AF33 /* KDGLContextAndBufferConfig.m in Sources */,
+				2B787EE3214CCBA60016AF33 /* KDProgramLink.m in Sources */,
 				2BEA6ABC213DCA41003E8FEE /* KDNewGLView.m in Sources */,
+				2B787EDC214B6E320016AF33 /* KDAnimationGLView.m in Sources */,
 				2B17D461213890250039665E /* ViewController.m in Sources */,
 				2B17D46C213890280039665E /* main.m in Sources */,
 				2BEA6AB7213CA481003E8FEE /* KDGLView.m in Sources */,
 				2B17D45E213890250039665E /* AppDelegate.m in Sources */,
+				2B787EE0214CC6DA0016AF33 /* KDShaderLoad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

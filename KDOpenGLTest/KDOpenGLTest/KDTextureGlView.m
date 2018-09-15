@@ -7,7 +7,11 @@
 //
 
 #import "KDTextureGlView.h"
-#import <OpenGLES/ES3/glext.h>
+#import "KDShaderLoad.h"
+#import "KDProgramLink.h"
+#import "KDGLContextAndBufferConfig.h"
+
+//#import <OpenGLES/ES3/glext.h>
 
 @interface KDTextureGlView()
 {
@@ -25,6 +29,7 @@
         [self kd_contextSet];
         GLuint program = [self kd_linkProgram];
         [self kd_createFrameAndRenderBuffer];
+//        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer];
         [self kd_createViewPort];
 
 //        float vertexMessageArr[] = {
@@ -176,17 +181,17 @@
     if (loadError) {
         NSLog(@"load failed");
     }
-    
+
     GLuint shader = glCreateShader(type);
     if (shader == 0) {
         NSLog(@"creat shader failed");
     }
-    
+
     const GLchar *shaderCStr = (GLchar *)shaderStr.UTF8String;
     glShaderSource(shader, 1, &shaderCStr, NULL);
-    
+
     glCompileShader(shader);
-    
+
     GLint compile;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compile);
     GLchar compileInfoLog[256];
@@ -194,19 +199,22 @@
         glGetShaderInfoLog(shader,1024, NULL,compileInfoLog);
         NSLog(@"%s", compileInfoLog);
     }
-    
+
     return shader;
+//    [[KDShaderLoad shareInstance] loadShaderWithName:fileName andType:type];
 }
 
 - (GLuint)kd_linkProgram
 {
+//    NSDictionary *dic = @{@"KDTextureVertex":@"GL_VERTEX_SHADER",@"KDTextureFragment":@"GL_FRAGMENT_SHADER"};
+//    return [KDProgramLink kd_programLinkWithShaderDic:dic];
     GLuint vertexShader = [self kd_loadShader:@"KDTextureVertex" withType:GL_VERTEX_SHADER];
     GLuint fragmentShader = [self kd_loadShader:@"KDTextureFragment" withType:GL_FRAGMENT_SHADER];
     GLuint programHandle = glCreateProgram();
     glAttachShader(programHandle, vertexShader);
     glAttachShader(programHandle, fragmentShader);
     glLinkProgram(programHandle);
-    
+
     GLint linkSuccess;
     glGetProgramiv(programHandle, GL_LINK_STATUS, &linkSuccess);
     GLchar linkInfoLog[1024];
@@ -214,12 +222,12 @@
         glGetShaderInfoLog(programHandle,1024, NULL,linkInfoLog);
         NSLog(@"%s", linkInfoLog);
     }
-    
+
     // 调用 glUseProgram绑定程序对象 让OpenGL ES真正执行你的program进行渲染
     glUseProgram(programHandle);
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-    
+
     return programHandle;
 }
 
