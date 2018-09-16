@@ -27,9 +27,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self kd_contextSet];
+//        [self kd_createFrameAndRenderBuffer];
+        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:_context];
         GLuint program = [self kd_linkProgram];
-        [self kd_createFrameAndRenderBuffer];
-//        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer];
         [self kd_createViewPort];
 
 //        float vertexMessageArr[] = {
@@ -43,7 +43,6 @@
 //            0, 1, 3, // 第一个三角形
 //            1, 2, 3  // 第二个三角形
 //        };
-        
         GLfloat attrArr[] =
         {
             0.5f, -0.5f, 0.0f,1.0f, 0.0f,
@@ -68,7 +67,6 @@
 //        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 //        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        
         // 位置属性
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
@@ -162,11 +160,7 @@
 
 - (void)kd_contextSet
 {
-    _glLayer = (CAEAGLLayer *)self.layer;
-    _glLayer.opaque = YES;
-    _glLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSNumber numberWithBool:YES],kEAGLDrawablePropertyRetainedBacking,kEAGLColorFormatRGBA8,kEAGLDrawablePropertyColorFormat,nil];
-    
+    //这东西必须在当前的view的类中设置
     _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     if (![EAGLContext setCurrentContext:_context]) {
         NSLog(@"set context failed");
@@ -233,6 +227,14 @@
 
 - (void)kd_createFrameAndRenderBuffer
 {
+    _glLayer = (CAEAGLLayer *)self.layer;
+    _glLayer.opaque = YES;
+    _glLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [NSNumber numberWithBool:YES],
+                                   kEAGLDrawablePropertyRetainedBacking,
+                                   kEAGLColorFormatRGBA8,
+                                   kEAGLDrawablePropertyColorFormat,nil];
+    
     GLuint frameBuffer;
     glGenFramebuffers(1, &frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);

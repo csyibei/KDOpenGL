@@ -12,12 +12,9 @@
 
 
 @interface KDGLContextAndBufferConfig : NSObject
-@property (nonatomic,readonly,strong) EAGLContext *context;
 @property (nonatomic,readonly,assign) GLuint frameBuffer;
 @property (nonatomic,readonly,assign) GLuint renderBuffer;
 
-
-
-- (instancetype)initWithLayer:(CAEAGLLayer *)glLayer;
+- (instancetype)initWithLayer:(CAEAGLLayer *)glLayer andContext:(EAGLContext *)context;
 
 @end
