@@ -11,7 +11,7 @@
 
 @implementation KDProgramLink
 
-+(GLuint)kd_programLinkWithShaderDic:(NSDictionary *)shaderDic
+- (GLuint)kd_programLinkWithShaderDic:(NSDictionary *)shaderDic
 {
     GLuint vertexShader = 0;
     GLuint fragmentShader = 0;

@@ -10,6 +10,7 @@
 #import "KDShaderLoad.h"
 #import "KDProgramLink.h"
 #import "KDGLContextAndBufferConfig.h"
+#import "KDTextureHandle.h"
 
 //#import <OpenGLES/ES3/glext.h>
 
@@ -27,8 +28,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self kd_contextSet];
-//        [self kd_createFrameAndRenderBuffer];
-        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:_context];
+        [self kd_createFrameAndRenderBuffer];
+//        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:_context];
         GLuint program = [self kd_linkProgram];
         [self kd_createViewPort];
 
@@ -104,10 +105,11 @@
 
 - (GLuint)kd_creatTextureWithImageName:(NSString *)imageName
 {
-//    UIImage *image =  [UIImage imageNamed:@"KDPicture1"];
-//    NSData *data = UIImagePNGRepresentation(image);
-//    char *imageData = (char *)[data bytes];
+    UIImage *image =  [UIImage imageNamed:@"KDPicture1"];
+    NSData *data = UIImagePNGRepresentation(image);
+    char *imageData = (char *)[data bytes];
     
+
     CGImageRef alpacaImage = [UIImage imageNamed:imageName].CGImage;
     if (!alpacaImage) {
         NSLog(@"Failed to load image");
@@ -154,8 +156,11 @@
                  alpacaData);
 //    glGenerateMipmap(GL_TEXTURE_2D);
     free(alpacaData);
+
     
     return texture;
+//    KDTextureHandle *handle = [[KDTextureHandle alloc] init];
+//    return [handle kd_creatContextWithImageName:imageName];
 }
 
 - (void)kd_contextSet

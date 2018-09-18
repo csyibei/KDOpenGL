@@ -11,6 +11,6 @@
 
 @interface KDProgramLink : NSObject
 
-+ (GLuint)kd_programLinkWithShaderDic:(NSDictionary *)shaderDic;
+- (GLuint)kd_programLinkWithShaderDic:(NSDictionary *)shaderDic;
 
 @end

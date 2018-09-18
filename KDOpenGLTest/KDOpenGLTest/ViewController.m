@@ -10,6 +10,7 @@
 #import "KDGLView.h"
 #import "KDNewGLView.h"
 #import "KDTextureGlView.h"
+#import "KDAnimationGLView.h"
 
 
 @interface ViewController ()
@@ -41,7 +42,7 @@
 //    });
     
     
-    KDTextureGlView *glv = [[KDTextureGlView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    KDAnimationGLView *glv = [[KDAnimationGLView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     [self.view addSubview:glv];
     
 //    [context presentRenderbuffer:0];
