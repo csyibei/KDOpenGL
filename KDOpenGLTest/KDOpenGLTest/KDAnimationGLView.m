@@ -11,6 +11,7 @@
 #import "KDGLContextAndBufferConfig.h"
 #import "KDProgramLink.h"
 #import "KDShaderLoad.h"
+#import <GLKit/GLKit.h>
 
 @implementation KDAnimationGLView
 
@@ -35,6 +36,16 @@
         if (![EAGLContext setCurrentContext:context]) {
             NSLog(@"context set failed");
         }
+        
+//        GLKMatrix4Translate(<#GLKMatrix4 matrix#>, <#float tx#>, <#float ty#>, <#float tz#>);
+//        GLKMatrix4Scale(<#GLKMatrix4 matrix#>, <#float sx#>, <#float sy#>, <#float sz#>);
+//        GLKMatrix4Rotate(<#GLKMatrix4 matrix#>, <#float radians#>, <#float x#>, <#float y#>, <#float z#>)
+        
+//        GLKMatrix4MakeTranslation(<#float tx#>, <#float ty#>, <#float tz#>)
+//        GLKMatrix4MakeRotation(<#float radians#>, <#float x#>, <#float y#>, <#float z#>)
+//        GLKMatrix4MakeScale(<#float sx#>, <#float sy#>, <#float sz#>)
+        
+//        GLKMatrix4MakeLookAt(<#float eyeX#>, <#float eyeY#>, <#float eyeZ#>, <#float centerX#>, <#float centerY#>, <#float centerZ#>, <#float upX#>, <#float upY#>, <#float upZ#>)
         
         KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:context];
         
