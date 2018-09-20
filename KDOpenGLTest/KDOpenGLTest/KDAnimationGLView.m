@@ -54,7 +54,7 @@
                                      @"KDTextureVertex":@"GL_VERTEX_SHADER",
                                      @"KDTextureFragment":@"GL_FRAGMENT_SHADER"
                                      };
-        [link kd_programLinkWithShaderDic:shaderInfo];
+        GLuint linkProgram = [link kd_programLinkWithShaderDic:shaderInfo];
         
         KDTextureHandle *textureHandle = [[KDTextureHandle alloc] init];
         GLuint texture1 = [textureHandle kd_creatContextWithImageName:@"KDPicture1"];
@@ -92,6 +92,10 @@
         
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
+        
+        GLKMatrix4MakeTranslation(2.0, 2.0, 2.0);
+        int matrix = glGetUniformLocation(linkProgram, "matrix");
+        glUniformMatrix4fv(matrix, 1, GL_FALSE, <#const GLfloat *value#>)
         
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
