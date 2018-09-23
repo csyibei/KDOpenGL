@@ -93,13 +93,17 @@
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
         
-        GLKMatrix4MakeTranslation(2.0, 2.0, 2.0);
+        GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(2.0, 0.0, 0.0);
+        GLfloat *m = translationMatrix.m;
         int matrix = glGetUniformLocation(linkProgram, "matrix");
-        glUniformMatrix4fv(matrix, 1, GL_FALSE, <#const GLfloat *value#>)
+        glUniformMatrix4fv(matrix, 1, GL_FALSE, m);
         
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
         [context presentRenderbuffer:GL_RENDERBUFFER];
+        
+     
+        
         
     }
     return self;
