@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KDAnimationGLView : UIView
+typedef NS_ENUM(NSUInteger, KDGLChangeType) {
+    KDGLChangeTypeTranslation,
+    KDGLChangeTypeScales,
+    KDGLChangeTypeRotation,
+};
 
+@interface KDAnimationGLView : UIView
+- (void)kd_changeWithChangeType:(KDGLChangeType)changeType changeValue:(CGFloat)changeValue;
 @end

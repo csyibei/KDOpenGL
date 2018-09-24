@@ -14,6 +14,11 @@
 #import <GLKit/GLKit.h>
 
 @implementation KDAnimationGLView
+{
+    GLuint _linkProgram;
+    EAGLContext *_context;
+    GLuint _VAO;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -32,29 +37,21 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-        if (![EAGLContext setCurrentContext:context]) {
+        _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+        if (![EAGLContext setCurrentContext:_context]) {
             NSLog(@"context set failed");
         }
         
-//        GLKMatrix4Translate(<#GLKMatrix4 matrix#>, <#float tx#>, <#float ty#>, <#float tz#>);
-//        GLKMatrix4Scale(<#GLKMatrix4 matrix#>, <#float sx#>, <#float sy#>, <#float sz#>);
-//        GLKMatrix4Rotate(<#GLKMatrix4 matrix#>, <#float radians#>, <#float x#>, <#float y#>, <#float z#>)
-        
-//        GLKMatrix4MakeTranslation(<#float tx#>, <#float ty#>, <#float tz#>)
-//        GLKMatrix4MakeRotation(<#float radians#>, <#float x#>, <#float y#>, <#float z#>)
-//        GLKMatrix4MakeScale(<#float sx#>, <#float sy#>, <#float sz#>)
-        
 //        GLKMatrix4MakeLookAt(<#float eyeX#>, <#float eyeY#>, <#float eyeZ#>, <#float centerX#>, <#float centerY#>, <#float centerZ#>, <#float upX#>, <#float upY#>, <#float upZ#>)
         
-        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:context];
+        KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:_context];
         
         KDProgramLink *link = [[KDProgramLink alloc] init];
         NSDictionary *shaderInfo = @{
                                      @"KDTextureVertex":@"GL_VERTEX_SHADER",
                                      @"KDTextureFragment":@"GL_FRAGMENT_SHADER"
                                      };
-        GLuint linkProgram = [link kd_programLinkWithShaderDic:shaderInfo];
+        _linkProgram = [link kd_programLinkWithShaderDic:shaderInfo];
         
         KDTextureHandle *textureHandle = [[KDTextureHandle alloc] init];
         GLuint texture1 = [textureHandle kd_creatContextWithImageName:@"KDPicture1"];
@@ -73,9 +70,9 @@
             0.5f, -0.5f, 0.0f,1.0f, 0.0f,
         };
         
-        GLuint VAO;
-        glGenVertexArrays(1, &VAO);
-        glBindVertexArray(VAO);
+
+        glGenVertexArrays(1, &_VAO);
+        glBindVertexArray(_VAO);
         
         GLuint VBO;
         glGenBuffers(1, &VBO);
@@ -93,20 +90,43 @@
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
         
-        GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(2.0, 0.0, 0.0);
+        GLKMatrix4 translationMatrix = GLKMatrix4Identity;
         GLfloat *m = translationMatrix.m;
-        int matrix = glGetUniformLocation(linkProgram, "matrix");
+        int matrix = glGetUniformLocation(_linkProgram, "matrix");
         glUniformMatrix4fv(matrix, 1, GL_FALSE, m);
         
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
-        [context presentRenderbuffer:GL_RENDERBUFFER];
-        
-     
-        
-        
+        [_context presentRenderbuffer:GL_RENDERBUFFER];
+    
     }
     return self;
+}
+
+- (void)kd_changeWithChangeType:(KDGLChangeType)changeType changeValue:(CGFloat)changeValue
+{
+    glBindVertexArray(_VAO);
+    glClear(GL_COLOR_BUFFER_BIT);
+    GLKMatrix4 translationMatrix;
+    switch (changeType) {
+        case KDGLChangeTypeTranslation:
+            translationMatrix = GLKMatrix4MakeTranslation(changeValue, 0.0, 0.0);
+            break;
+        case KDGLChangeTypeScales:
+            translationMatrix = GLKMatrix4MakeScale(changeValue, changeValue, 0.0);
+            break;
+        case KDGLChangeTypeRotation:
+            translationMatrix = GLKMatrix4MakeZRotation(changeValue);
+            break;
+        default:
+            break;
+    }
+    GLfloat *m = translationMatrix.m;
+    int matrix = glGetUniformLocation(_linkProgram, "matrix");
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, m);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+    [_context presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 @end
