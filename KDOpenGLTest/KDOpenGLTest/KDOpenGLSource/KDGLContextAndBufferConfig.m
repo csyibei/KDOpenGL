@@ -25,16 +25,16 @@
                                        kEAGLColorFormatRGBA8,
                                        kEAGLDrawablePropertyColorFormat,nil];
         
-        GLuint frameBuffer;
-        glGenFramebuffers(1, &frameBuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+//        GLuint frameBuffer;
+        glGenFramebuffers(1, &_frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
         
-        GLuint renderBuffer;
-        glGenRenderbuffers(1, &renderBuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
+//        GLuint renderBuffer;
+        glGenRenderbuffers(1, &_renderBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
         [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:glLayer];
         
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _renderBuffer);
     }
     return self;
 }

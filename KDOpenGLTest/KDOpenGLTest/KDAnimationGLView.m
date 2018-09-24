@@ -45,6 +45,9 @@
 //        GLKMatrix4MakeLookAt(<#float eyeX#>, <#float eyeY#>, <#float eyeZ#>, <#float centerX#>, <#float centerY#>, <#float centerZ#>, <#float upX#>, <#float upY#>, <#float upZ#>)
         
         KDGLContextAndBufferConfig *config = [[KDGLContextAndBufferConfig alloc] initWithLayer:(CAEAGLLayer *)self.layer andContext:_context];
+        if (!config.frameBuffer && !config.renderBuffer) {
+            NSLog(@"buffer create failed");
+        }
         
         KDProgramLink *link = [[KDProgramLink alloc] init];
         NSDictionary *shaderInfo = @{
